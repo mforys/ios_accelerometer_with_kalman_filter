@@ -16,6 +16,12 @@ class DataController: ObservableObject {
     @Published var rotationRateX = 0.0
     @Published var rotationRateY = 0.0
     @Published var rotationRateZ = 0.0
+    
+    @Published var angleX = 0.0
+    @Published var angleY = 0.0
+    @Published var angleZ = 0.0
+    
+    var enableKalmanFilter = false
 
     init() {
         print("DataController initialised")
@@ -29,17 +35,52 @@ class DataController: ObservableObject {
 
     func updateAccelerometerValue(accX: Double, accY: Double, accZ: Double)
     {
-        print("updateAccelerometerValue: \(accX), \(accY), \(accZ)")
+        //print("updateAccelerometerValue: \(accX), \(accY), \(accZ)")
         self.accelerationX = accX
         self.accelerationY = accY
         self.accelerationZ = accZ
+
+        if enableKalmanFilter {
+            updateAnglesAfterAccelerometerMeasurement()
+        }
+        else
+        {
+            convertAccelerationOnAngles()
+        }
     }
-    
+
     func updateGyroscopeValue(rotationX: Double, rotationY: Double, rotationZ: Double)
     {
-        print("updateGyroscopeValue: \(rotationX), \(rotationY), \(rotationZ)")
+        //print("updateGyroscopeValue: \(rotationX), \(rotationY), \(rotationZ)")
         self.rotationRateX = rotationX
         self.rotationRateY = rotationY
         self.rotationRateZ = rotationZ
+        
+        if enableKalmanFilter {
+            updateAnglesAfterGyroscopeMeasurement()
+        }
+    }
+
+    func convertAccelerationOnAngles() {
+        angleX = atan2(accelerationX, sqrt((accelerationY * accelerationY + accelerationZ * accelerationZ)))
+        angleY = atan2(accelerationY, sqrt((accelerationX * accelerationX + accelerationZ * accelerationZ)))
+        angleZ = atan2(accelerationZ, sqrt((accelerationX * accelerationX + accelerationY * accelerationY)))
+    }
+
+    func updateAnglesAfterAccelerometerMeasurement() {
+        
+        let currentAngleX = atan2(accelerationX, sqrt((accelerationY * accelerationY + accelerationZ * accelerationZ)))
+        let currentAngleY = atan2(accelerationY, sqrt((accelerationX * accelerationX + accelerationZ * accelerationZ)))
+        let currentAngleZ = atan2(accelerationZ, sqrt((accelerationX * accelerationX + accelerationY * accelerationY)))
+    
+        angleX = KalmanFilter.angleRadiansWithKalmanFilter(previousAngleRadians: angleX, accelerometerReadingRadians: currentAngleX)
+        angleY = KalmanFilter.angleRadiansWithKalmanFilter(previousAngleRadians: angleY, accelerometerReadingRadians: currentAngleY)
+        angleZ = KalmanFilter.angleRadiansWithKalmanFilter(previousAngleRadians: angleZ, accelerometerReadingRadians: currentAngleZ)
+    }
+
+    func updateAnglesAfterGyroscopeMeasurement() {
+        angleX = KalmanFilter.angleRadiansFromGyro(previousAngleRadians: angleX, gyroReadingRadiansPerSec: rotationRateX)
+        angleY = KalmanFilter.angleRadiansFromGyro(previousAngleRadians: angleY, gyroReadingRadiansPerSec: rotationRateY)
+        angleZ = KalmanFilter.angleRadiansFromGyro(previousAngleRadians: angleZ, gyroReadingRadiansPerSec: rotationRateZ)
     }
 }

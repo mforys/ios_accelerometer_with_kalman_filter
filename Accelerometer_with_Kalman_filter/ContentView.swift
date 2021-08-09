@@ -39,19 +39,24 @@ struct ContentView: View {
             Circle()
                 .foregroundColor(/*@START_MENU_TOKEN@*/.blue/*@END_MENU_TOKEN@*/)
                 .frame(width: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, height: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                .offset(x: CGFloat(dataController.accelerationX) * 200, y: CGFloat(dataController.accelerationY) * 200)
+                .offset(x: CGFloat(dataController.angleX) * 200, y: CGFloat(-dataController.angleY) * 200)
                 .padding()
 
             Spacer()
 
             Button{
-                useKalmanFilter.toggle()
+                useKalmanFilter
+                    .toggle()
             }
             label: {
                 Text(useKalmanFilter ? "Kalman Filter ON" : "Kalman Filter OFF")
                     .bold()
                     .padding(20)
             }
+            .onChange(of: useKalmanFilter, perform: { value in
+                dataController.enableKalmanFilter = useKalmanFilter
+                print("Kalman filter: \(useKalmanFilter)")
+            })
             .contentShape(Rectangle())
             .padding()
             .background(Color(red: 0.1, green: 0.1, blue: 0))
