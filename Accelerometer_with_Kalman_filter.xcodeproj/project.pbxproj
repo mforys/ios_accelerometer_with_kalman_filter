@@ -12,6 +12,7 @@
 		B5E2A74626C1B17B005B164D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B5E2A74526C1B17B005B164D /* Assets.xcassets */; };
 		B5E2A74926C1B17B005B164D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B5E2A74826C1B17B005B164D /* Preview Assets.xcassets */; };
 		B5E2A75126C1B369005B164D /* CMMotionManager+Accel+Gyro.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E2A75026C1B369005B164D /* CMMotionManager+Accel+Gyro.swift */; };
+		B5E2A75326C1B3C4005B164D /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E2A75226C1B3C4005B164D /* DataController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		B5E2A74826C1B17B005B164D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		B5E2A74A26C1B17B005B164D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B5E2A75026C1B369005B164D /* CMMotionManager+Accel+Gyro.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CMMotionManager+Accel+Gyro.swift"; sourceTree = "<group>"; };
+		B5E2A75226C1B3C4005B164D /* DataController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +57,7 @@
 			isa = PBXGroup;
 			children = (
 				B5E2A74126C1B17A005B164D /* Accelerometer_with_Kalman_filterApp.swift */,
+				B5E2A75226C1B3C4005B164D /* DataController.swift */,
 				B5E2A75026C1B369005B164D /* CMMotionManager+Accel+Gyro.swift */,
 				B5E2A74326C1B17A005B164D /* ContentView.swift */,
 				B5E2A74526C1B17B005B164D /* Assets.xcassets */,
@@ -142,6 +145,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B5E2A74426C1B17A005B164D /* ContentView.swift in Sources */,
+				B5E2A75326C1B3C4005B164D /* DataController.swift in Sources */,
 				B5E2A75126C1B369005B164D /* CMMotionManager+Accel+Gyro.swift in Sources */,
 				B5E2A74226C1B17A005B164D /* Accelerometer_with_Kalman_filterApp.swift in Sources */,
 			);
