@@ -14,17 +14,20 @@ struct ContentView: View {
 
     var body: some View {
         VStack {
-        Text("MF Accelerator Kalman")
+        Text("MF Accelerator with Kalman filter")
+            .bold()
             .padding()
     
-            Group {
-                Text("Acceleration").bold()
+            VStack {
+                Text("Accelerator").bold()
                 Text("X = \(dataController.accelerationX)")
                 Text("Y = \(dataController.accelerationY)")
                 Text("Z = \(dataController.accelerationZ)")
             }
 
-            Group {
+            Text("")
+
+            VStack {
                 Text("Gyroscope").bold()
                 Text("X = \(dataController.rotationRateX)")
                 Text("Y = \(dataController.rotationRateY)")
