@@ -9,7 +9,6 @@ import Foundation
 
 class KalmanFilter {
     static let gyroUpdateInterval = 0.3
-    static let kalmanFactor = 0.02
 
     static func angleRadiansFromGyro(previousAngleRadians:Double,
                                      gyroReadingRadiansPerSec:Double) -> Double {
@@ -19,9 +18,10 @@ class KalmanFilter {
     }
 
     static func angleRadiansWithKalmanFilter(previousAngleRadians:Double,
-                                             accelerometerReadingRadians:Double) -> Double {
+                                             accelerometerReadingRadians:Double,
+                                             kalmanGain:Double) -> Double {
         var angleRadians = previousAngleRadians
-        angleRadians += kalmanFactor * (accelerometerReadingRadians - angleRadians)
+        angleRadians += kalmanGain * (accelerometerReadingRadians - angleRadians)
         return angleRadians
     }
 }

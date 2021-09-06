@@ -22,6 +22,7 @@ class DataController: ObservableObject {
     @Published var angleZ = 0.0
     
     var enableKalmanFilter = false
+    var kalmanGain = 0.0
 
     init() {
         print("DataController initialised")
@@ -73,9 +74,15 @@ class DataController: ObservableObject {
         let currentAngleY = atan2(accelerationY, sqrt((accelerationX * accelerationX + accelerationZ * accelerationZ)))
         let currentAngleZ = atan2(accelerationZ, sqrt((accelerationX * accelerationX + accelerationY * accelerationY)))
     
-        angleX = KalmanFilter.angleRadiansWithKalmanFilter(previousAngleRadians: angleX, accelerometerReadingRadians: currentAngleX)
-        angleY = KalmanFilter.angleRadiansWithKalmanFilter(previousAngleRadians: angleY, accelerometerReadingRadians: currentAngleY)
-        angleZ = KalmanFilter.angleRadiansWithKalmanFilter(previousAngleRadians: angleZ, accelerometerReadingRadians: currentAngleZ)
+        angleX = KalmanFilter.angleRadiansWithKalmanFilter(previousAngleRadians: angleX,
+                                                           accelerometerReadingRadians: currentAngleX,
+                                                           kalmanGain:kalmanGain)
+        angleY = KalmanFilter.angleRadiansWithKalmanFilter(previousAngleRadians: angleY,
+                                                           accelerometerReadingRadians: currentAngleY,
+                                                           kalmanGain:kalmanGain)
+        angleZ = KalmanFilter.angleRadiansWithKalmanFilter(previousAngleRadians: angleZ,
+                                                           accelerometerReadingRadians: currentAngleZ,
+                                                           kalmanGain:kalmanGain)
     }
 
     func updateAnglesAfterGyroscopeMeasurement() {

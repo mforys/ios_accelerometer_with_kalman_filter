@@ -11,6 +11,7 @@ struct ContentView: View {
 
     @ObservedObject var dataController = DataController()
     @State var useKalmanFilter = false
+    @State var kalmanGain = 0.0
 
     var body: some View {
         VStack {
@@ -39,10 +40,20 @@ struct ContentView: View {
             Circle()
                 .foregroundColor(/*@START_MENU_TOKEN@*/.blue/*@END_MENU_TOKEN@*/)
                 .frame(width: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, height: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                .offset(x: CGFloat(dataController.angleX) * 200, y: CGFloat(-dataController.angleY) * 200)
+                .offset(x: CGFloat(dataController.angleX) * 200, y: CGFloat(-dataController.angleY) * 120)
                 .padding()
 
             Spacer()
+            
+            Slider(value: $kalmanGain, in:0...1)
+                .onChange(of: kalmanGain, perform: { value in
+                    dataController.kalmanGain = kalmanGain
+                    print("Kalman gain: \(kalmanGain)")
+                })
+                .accentColor(useKalmanFilter ? .purple : .secondary)
+                .disabled(!useKalmanFilter)
+                .id(useKalmanFilter)
+                .padding()
 
             Button{
                 useKalmanFilter
