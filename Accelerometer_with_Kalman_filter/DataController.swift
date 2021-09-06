@@ -86,8 +86,11 @@ class DataController: ObservableObject {
     }
 
     func updateAnglesAfterGyroscopeMeasurement() {
-        angleX = KalmanFilter.angleRadiansFromGyro(previousAngleRadians: angleX, gyroReadingRadiansPerSec: rotationRateX)
-        angleY = KalmanFilter.angleRadiansFromGyro(previousAngleRadians: angleY, gyroReadingRadiansPerSec: rotationRateY)
-        angleZ = KalmanFilter.angleRadiansFromGyro(previousAngleRadians: angleZ, gyroReadingRadiansPerSec: rotationRateZ)
+        angleX = KalmanFilter.angleRadiansFromGyro(previousAngleRadians: angleX,
+                                                   gyroReadingRadiansPerSec: rotationRateX)
+        angleY = KalmanFilter.angleRadiansFromGyro(previousAngleRadians: angleY,
+                                                   gyroReadingRadiansPerSec: rotationRateY)
+        angleZ = KalmanFilter.angleRadiansFromGyro(previousAngleRadians: angleZ,
+                                                   gyroReadingRadiansPerSec: rotationRateZ)
     }
 }
